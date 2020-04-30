@@ -1,5 +1,5 @@
 
-use minifb::{Window, WindowOptions, MouseMode, MouseButton, Scale, ScaleMode, Key, KeyRepeat};
+use minifb::{Window, WindowOptions, MouseMode, MouseButton, Scale, ScaleMode, Key};
 
 
 use std::time::Instant;
@@ -238,7 +238,6 @@ impl PGE {
 
         if let Some(win) = &mut self.window {
             win.limit_update_rate(None);
-            win.set_key_repeat_delay(0.0);
             //win.limit_update_rate(Some(std::time::Duration::from_millis(2)));
         }
         if !state.on_user_create() {
@@ -256,7 +255,7 @@ impl PGE {
             // Handle User Input - Keyboard
             let mut new_key_state: [bool; 256] = [false; 256];
             if let Some(win) = &mut self.window { 
-                let keys = win.get_keys_pressed(KeyRepeat::Yes).unwrap();
+                let keys = win.get_keys().unwrap();
                 for key in keys {
                     new_key_state[key as usize] = true;
                 }
